@@ -3,15 +3,19 @@ title: "Air Pollution"
 output: html_notebook
 ---
 
-```{r}
-pollutantmean <- function(){
-  ## Directory is a character vector of length 1 location of csv files
-  #direct <- file.path(directory)
-  #archivo <- paste(direct, "/", deparse(id), ".csv", sep = "")
-  archivo <- file.choose()
-  data <- read.csv(archivo)
-  print(data)
-}
-pollutantmean()
-```
 
+```{r}
+pollutantmean <- function(directory, Popullant, id = 1:332){
+  setwd(directory)
+  directorio <- dir()
+  data2 <- c()
+  for (csv in id) {
+    data <- read.csv(directorio[csv])
+    columna <- data[Popullant]
+    val_na <- is.na(columna)
+    data2 <- c(data2, columna[!val_na])
+  }
+print(mean(data2))
+}
+pollutantmean('specdata','nitrate', 1:10)
+```
